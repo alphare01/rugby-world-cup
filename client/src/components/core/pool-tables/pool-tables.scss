@@ -1,0 +1,141 @@
+.data-pool-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    .data-pool-content {
+        border-radius: 5px;
+        min-height: 250px;
+        .pool-header {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .row.header {
+            display: flex;
+            color: white;
+            height: 25px;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: bold;
+            .cell {
+                width: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .cell.rank {
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 50px;
+                border-top-left-radius: 45px;
+                border-top-right-radius: 15px;
+                margin-right: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
+            .cell.score {
+                border-bottom-left-radius: 35px;
+                border-bottom-right-radius: 65px;
+                border-top-left-radius: 40px;
+                border-top-right-radius: 20px;
+                margin-left: 10px;
+                padding: 10px;
+            }
+            .block{
+                display: flex;
+
+                .cell:first-child {
+                    border-bottom-left-radius: 13px;
+                    border-top-left-radius: 45px;
+                    padding-left: 20px;
+                }
+                .cell:last-child {
+                    border-bottom-right-radius: 45px;
+                    border-top-right-radius: 13px;
+                    padding-right: 20px;
+                }
+            }
+        }
+        .row:not(.header) {
+            display: flex;
+            color: #233D4D;
+            font-weight: 500;
+            margin-bottom: 20px;
+            height: 50px;
+            border-bottom-left-radius: 13px;
+            border-bottom-right-radius: 45px;
+            border-top-left-radius: 45px;
+            border-top-right-radius: 13px;
+            padding: 0 25px;
+
+            &.accent {
+                color: white;
+                .cell {
+                    background-color: #A1C181;
+                }
+            }
+            .cell {
+                background-color: #619B8A;
+                min-width: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .fi {
+                    margin-right: 15px;
+                    font-size: 25px;
+                    border-bottom-left-radius: 5%;
+                    border-bottom-right-radius: 50%;
+                    border-top-left-radius: 50%;
+                    border-top-right-radius: 5%;
+
+                    &.bigger {
+                        font-size: 30px;
+                    }
+                }
+            }
+
+            .cell.rank {
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 50px;
+                border-top-left-radius: 45px;
+                border-top-right-radius: 15px;
+                margin-right: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
+            .cell.score {
+                border-bottom-left-radius: 35px;
+                border-bottom-right-radius: 65px;
+                border-top-left-radius: 40px;
+                border-top-right-radius: 20px;
+                margin-left: 10px;
+                padding: 10px;
+            }
+
+            .block{
+                display: flex;
+
+                .cell:first-child {
+                    border-bottom-left-radius: 13px;
+                    border-top-left-radius: 45px;
+                    padding-left: 20px;
+                    justify-content: flex-start;
+                }
+                .cell:last-child {
+                    border-bottom-right-radius: 45px;
+                    border-top-right-radius: 13px;
+                    padding-right: 20px;
+                }
+            }
+            
+        }
+    }
+}

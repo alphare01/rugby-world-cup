@@ -1,0 +1,82 @@
+{
+    "France": {
+        "frenchName": "France",
+        "code": "fr"
+    },
+    "New-Zealand": {
+        "frenchName": "Nouvelle-Zélande",
+        "code": "nz"
+    },
+    "Italy": {
+        "frenchName": "Italie",
+        "code": "it"
+    },
+    "Uruguay": {
+        "frenchName": "Uruguay",
+        "code": "uy"
+    },
+    "Namibia": {
+        "frenchName": "Namibie",
+        "code": "na"
+    },
+    "South-Africa": {
+        "frenchName": "Afrique du Sud",
+        "code": "za"
+    },
+    "Ireland": {
+        "frenchName": "Irlande",
+        "code": "ie"
+    },
+    "Scotland": {
+        "frenchName": "Ecosse",
+        "code": "gb-sct"
+    },
+    "Tonga": {
+        "frenchName": "Tonga",
+        "code": "to"
+    },
+    "Romania": {
+        "frenchName": "Roumanie",
+        "code": "ro"
+    },
+    "Wales": {
+        "frenchName": "Pays de Galles",
+        "code": "gb-wls"
+    },
+    "Australia": {
+        "frenchName": "Australie",
+        "code": "au"
+    },
+    "Fiji": {
+        "frenchName": "Fidji",
+        "code": "fj"
+    },
+    "Georgia": {
+        "frenchName": "Georgie",
+        "code": "ge"
+    },
+    "Portugal": {
+        "frenchName": "Portugal",
+        "code": "pt"
+    },
+    "England": {
+        "frenchName": "Angleterre",
+        "code": "gb-eng"
+    },
+    "Japan": {
+        "frenchName": "Japon",
+        "code": "jp"
+    },
+    "Argentina": {
+        "frenchName": "Argentine",
+        "code": "ar"
+    },
+    "Samoa": {
+        "frenchName": "Samoa",
+        "code": "ws"
+    },
+    "Chile": {
+        "frenchName": "Chili",
+        "code": "cl"
+    }
+}

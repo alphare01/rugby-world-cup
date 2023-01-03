@@ -1,0 +1,27 @@
+
+
+.App { 
+  font-family: system-ui;
+  background-color: #233D4D;
+  color: #fff;
+  cursor: default;
+}
+
+button {
+  border: none;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background-color: #FE7F2D;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: darken(#FE7F2D, 10%);
+}

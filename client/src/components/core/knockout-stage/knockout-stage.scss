@@ -1,0 +1,202 @@
+.knockout-container {
+    .bracket {
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        font-size: 1rem;
+
+        .round {
+            display: inline-block;
+		    vertical-align: middle;
+
+            .winners {
+                & > div {
+                    display: inline-block;
+				    vertical-align: middle;
+
+                    &.matchups {
+                        .matchup {
+                            &:last-child {
+							    margin-bottom: 0 !important;
+                            }
+                            .participants {
+                                .participant {
+                                    box-sizing: border-box;
+                                    color: #858585;
+                                    border-left: 0.25rem solid #858585;
+                                    background: white;
+                                    width: 15rem;
+                                    height: 3rem;
+                                    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+                                    position: relative;
+                                    .co-input {
+                                        max-width: 50px;
+                                        input {
+                                            width: 100%;
+                                        }
+                                    }
+                                    &.winner {
+                                        color: #A1C181;
+                                        border-color: #A1C181;
+
+                                        .crown {
+                                            color: red;
+                                            display: block;
+                                            position: absolute;
+                                            right: -30px;
+                                            top: 10px;
+                                            max-height: 30px;
+                                        }
+                                    }
+                                    &:not(.winner) {
+                                        .crown {
+                                            display: none;
+                                        }
+                                        
+                                    }
+                                    &.loser {
+                                        color: #FE7F2D;
+                                        border-color: #FE7F2D;
+                                    }
+
+                                    &:not(:last-child) {
+                                        border-bottom: thin solid #f0f2f2;
+                                        border-top-left-radius: 0.25rem;
+                                        border-top-right-radius: 0.25rem;
+                                    }
+                                    &:last-child {
+                                        border-bottom-left-radius: 0.25rem;
+                                        border-bottom-right-radius: 0.25rem;
+                                    }
+
+                                    span:not(.fi) {
+                                        margin: 0 20px 0 10px;
+                                        line-height: 3;
+                                        font-size: 1rem;
+                                        display: flex;
+                                        flex-direction: row;
+                                        justify-content: space-between;
+                                    }
+
+                                    // &:hover {
+                                    //     background-color: lighten(#A1C181, 15%);
+                                    //     color: #233D4D;
+                                    // }
+                                        
+                                }
+                            }
+                        }
+                    }
+                    &.connector {
+                        &.filled {
+                            .line, &.bottom .merged:after, &.top .merger:before {
+                                border-color: #A1C181;
+                            }
+                        }
+                        .line, .merger {
+                            box-sizing: border-box;
+                            width: 2rem;
+                            display: inline-block;
+                            vertical-align: top;
+                        }
+                        .line {
+                            border-bottom: thin solid #c0c0c8;
+                            height: 4rem;
+                        }
+                        .merger {
+                            position: relative;
+                            height: 8rem;
+                            &:before, &:after {
+                                content: "";
+                                display: block;
+                                box-sizing: border-box;
+                                width: 100%;
+                                height: 50%;
+                                border: 0 solid;
+                                border-color: #c0c0c8;
+                            }
+                            &:before {
+                                border-right-width: thin;
+                                border-top-width: thin;
+                            }
+                            &:after {
+                                border-right-width: thin;
+                                border-bottom-width: thin;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            &.quarterfinals {
+                .winners {
+                    &:not(:last-child) {
+                        margin-bottom: 2rem;
+                    }
+                }
+                .matchups {
+                    .matchup {
+                        &:not(:last-child) {
+                            margin-bottom: 2rem;
+                        }
+                        .participants {
+                            .participant {
+
+                            }
+                        }
+                    }
+                }
+            }
+            &.semifinals {
+                .winners {
+                    .matchups {
+                        .matchup {
+                            &:not(:last-child) {
+                                margin-bottom: 10rem;
+                            }
+                            .participants {
+                                .participant {
+
+                                }
+                            }
+                        }
+                    }
+                    .connector {
+                        .merger {
+                            height: 16rem;
+                        }
+                        .line {
+                            height: 8rem;
+                        }
+                    }
+                }
+            }
+
+            &.finals {
+                .winners {
+                    .matchups {
+                        .matchup {
+                            .participants {
+                                .participant {
+
+                                }
+                            }
+                        }
+                        .connector {
+                            .merger {
+                                height: 3rem;
+                            }
+                            .line {
+                                height: 1.5rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
