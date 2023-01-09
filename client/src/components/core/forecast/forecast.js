@@ -202,7 +202,7 @@ const ForecastComponent = ({ goNext, setLoader }) => {
             return;
         } else {
             const keys = Object.keys(totals);
-            const haveScoreNull = false;
+            let haveScoreNull = false;
             keys.forEach(key => {
                 if (totals[key] === 0) {
                     haveScoreNull = true;
