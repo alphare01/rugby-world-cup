@@ -10,6 +10,10 @@ const KnockoutStageComponent = ({setLoader}) => {
     const [finals, setFinals] = useState({});
     const [forecast, setForecast] = useState({})
     const [winners, setWinners] = useState({})
+    const [isFinalDraw, setIsFinalDraw] = useState(false);
+
+    const [popupTeams, setPopUpTeams] = useState(null);
+    const [displayPopUp, setDisplayPopUp] = useState(false);
 
     useEffect(() => {
         if (!knockoutMatches) {
@@ -62,11 +66,25 @@ const KnockoutStageComponent = ({setLoader}) => {
         }
     }
 
+    const setEqualityWinner = (winnerTeam, teams, phase ) => {
+        const matchKey = phase + '-' + winnerTeam.matchId;
+        setPopUpTeams(null);
+        setDisplayPopUp(false);
+        winnerTeam.isWinner = true;
+        winnerTeam['tab'] = true;
+        
+
+        setWinners((current) => ({
+            ...current,
+            [matchKey]: winnerTeam,
+        }));
+    }
+
     const setCurrentValue = (phase, team, score, matchId, teamKey) => {
         const key = phase + '-' + matchId + '-' + teamKey;
         const opponentTeamKey = teamKey === 'a' ? 'b' : 'a';
         const opponentKey = phase + '-' + matchId + '-' + opponentTeamKey;
-
+        
         let currentTeam = {
             name: team,
             score: score,
@@ -74,7 +92,9 @@ const KnockoutStageComponent = ({setLoader}) => {
             isWinner: false
         }
         if (!!forecast[opponentKey] && Number(forecast[opponentKey].score) < Number(score)) {
-            console.log('winner')
+            if (phase === 'finals') {
+                setIsFinalDraw(false);
+            }
             currentTeam.isWinner = true;
             const winnerKey = phase + '-' + matchId;
             setWinners((current) => ({
@@ -88,9 +108,16 @@ const KnockoutStageComponent = ({setLoader}) => {
             }));
         } else if (forecast[opponentKey] && Number(forecast[opponentKey].score) === Number(score)) {
             // Handle la pop up
-            console.log('equal')
+            if (phase === 'finals') {
+                setIsFinalDraw(true);
+            } else {
+                setDisplayPopUp(true);
+                setPopUpTeams({teams: [currentTeam, forecast[opponentKey]], phase: phase});
+            }
         } else if (forecast[opponentKey] && Number(forecast[opponentKey].score) > Number(score)) {
-            console.log('loser')
+            if (phase === 'finals') {
+                setIsFinalDraw(false);
+            } 
             let opponentTeam = forecast[opponentKey];
             opponentTeam.isWinner = true;
             const winnerKey = phase + '-' + matchId;
@@ -285,7 +312,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                 </span>
                                                 
                                             }
-                                            <img className='crown' src={require('../../../assets/cup.png')} />
+                                            {!isFinalDraw && <div className='crown'><span>WINNER</span><img src={require('../../../assets/cup.png')} /> </div>}
                                         </div>
                                         <div className={"participant " + (!!winners['finals-47'] && winners['finals-47'].name === winners['semifinals-46'].name ? 'winner' : '')}>
                                             {winners['semifinals-46'] && 
@@ -303,7 +330,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                     </div>                                   
                                                 </span>
                                             }
-                                        <img className='crown' src={require('../../../assets/cup.png')} />
+                                        {!isFinalDraw && <div className='crown'><span>WINNER</span><img src={require('../../../assets/cup.png')} /></div>}
 
                                         </div>
                                     </div>
@@ -315,7 +342,20 @@ const KnockoutStageComponent = ({setLoader}) => {
                 </div>
                 
             </div>
-            
+                                            
+            {(displayPopUp && popupTeams) && 
+                <div className="infos-popup">
+                    <div className="dark-background"></div>
+                    <div className="popup-container">
+                        <div className="popup-content">Qui remporter la séance de tir aux buts?</div>
+                        <div className="buttons">
+                            {popupTeams.teams.map((team, i) =>
+                                <button key={i} onClick={() => setEqualityWinner(team, popupTeams.teams, popupTeams.phase)}>{team.name}</button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     )
 };

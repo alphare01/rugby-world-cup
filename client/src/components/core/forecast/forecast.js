@@ -142,7 +142,8 @@ const ForecastComponent = ({ goNext, setLoader }) => {
 
     const formatDate = (date) => {
         if (date) {
-            return new Date(date).toDateString();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(date).toLocaleDateString("fr-FR", options)
         } else {
             return 'pas de date';
         }
@@ -436,7 +437,7 @@ const ForecastComponent = ({ goNext, setLoader }) => {
             </div>
             
             }
-            <button className={"submit-button" + (!isValid ? " disabled" : "")} onClick={() => submit()}>Submit</button>
+            <button className={"submit-button" + (!isValid ? " disabled" : "")} onClick={() => submit()}>Valider</button>
             {displayPopUp && 
                 <div className="infos-popup">
                     <div className="dark-background" onClick={() => setDisplayPopUp(false)}></div>

@@ -43,12 +43,22 @@
                                         border-color: #A1C181;
 
                                         .crown {
-                                            color: red;
-                                            display: block;
+                                            display: flex;
                                             position: absolute;
-                                            right: -30px;
-                                            top: 10px;
-                                            max-height: 30px;
+                                            right: -130px;
+                                            top: 0;
+                                            align-items: center;
+                                            justify-content: center;
+                                            span {
+                                                margin: 0 10px;
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                                color: #FE7F2D;
+                                                line-height: 2;
+                                            }
+                                            img {
+                                                max-height: 30px;
+                                            }
                                         }
                                     }
                                     &:not(.winner) {
