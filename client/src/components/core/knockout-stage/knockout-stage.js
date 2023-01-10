@@ -28,13 +28,6 @@ const KnockoutStageComponent = ({setLoader}) => {
     }, [isKnockOutMatchesLoading])
 
 
-    useEffect(() => {
-        if (winners) {
-            console.log('win', winners)
-        }
-    }, [winners])
-
-
     const getFlagKey = (name) => {
         let flag = (!!translate && translate[name]) ? translate[name].code : '';
         if (flag === 'nz') {
@@ -110,6 +103,8 @@ const KnockoutStageComponent = ({setLoader}) => {
             // Handle la pop up
             if (phase === 'finals') {
                 setIsFinalDraw(true);
+                setDisplayPopUp(true);
+                setPopUpTeams({teams: [currentTeam, forecast[opponentKey]], phase: phase});
             } else {
                 setDisplayPopUp(true);
                 setPopUpTeams({teams: [currentTeam, forecast[opponentKey]], phase: phase});
@@ -161,7 +156,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                             <input
                                                                 name={`${match.id}-teamA`}
                                                                 placeholder="Score"
-                                                                onChange={(e) => setCurrentValue('quarterfinals', match.teamA, e.target.value, match.id, 'a')}
+                                                                onBlur={(e) => setCurrentValue('quarterfinals', match.teamA, e.target.value, match.id, 'a')}
                                                                 type="number"
                                                                 min="0"
                                                             />
@@ -176,7 +171,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                             <input
                                                                 name={`${match.id}-teamB`}
                                                                 placeholder="Score"
-                                                                onChange={(e) => setCurrentValue('quarterfinals', match.teamB, e.target.value, match.id, 'b')}
+                                                                onBlur={(e) => setCurrentValue('quarterfinals', match.teamB, e.target.value, match.id, 'b')}
                                                                 type="number"
                                                                 min="0"
                                                             />
@@ -215,7 +210,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                     <input
                                                         name='41'
                                                         placeholder="Score"
-                                                        onChange={(e) => setCurrentValue('semifinals', winners['quarterfinals-41'].name, e.target.value, 45, 'a')}
+                                                        onBlur={(e) => setCurrentValue('semifinals', winners['quarterfinals-41'].name, e.target.value, 45, 'a')}
                                                         type="number"
                                                         min="0"
                                                     />
@@ -231,7 +226,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                     <input
                                                         name='42'
                                                         placeholder="Score"
-                                                        onChange={(e) => setCurrentValue('semifinals', winners['quarterfinals-42'].name, e.target.value, 45, 'b')}
+                                                        onBlur={(e) => setCurrentValue('semifinals', winners['quarterfinals-42'].name, e.target.value, 45, 'b')}
                                                         type="number"
                                                         min="0"
                                                     />
@@ -252,7 +247,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                     <input
                                                         name="43"
                                                         placeholder="Score"
-                                                        onChange={(e) => setCurrentValue('semifinals', winners['quarterfinals-43'].name, e.target.value, 46, 'a')}
+                                                        onBlur={(e) => setCurrentValue('semifinals', winners['quarterfinals-43'].name, e.target.value, 46, 'a')}
                                                         type="number"
                                                         min="0"
                                                     />
@@ -268,7 +263,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                     <input
                                                         name="44"
                                                         placeholder="Score"
-                                                        onChange={(e) => setCurrentValue('semifinals', winners['quarterfinals-44'].name, e.target.value, 46, 'b')}
+                                                        onBlur={(e) => setCurrentValue('semifinals', winners['quarterfinals-44'].name, e.target.value, 46, 'b')}
                                                         type="number"
                                                         min="0"
                                                     />
@@ -304,7 +299,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         <input
                                                             name="45"
                                                             placeholder="Score"
-                                                            onChange={(e) => setCurrentValue('finals', winners['semifinals-45'].name, e.target.value, 47, 'a')}
+                                                            onBlur={(e) => setCurrentValue('finals', winners['semifinals-45'].name, e.target.value, 47, 'a')}
                                                             type="number"
                                                             min="0"
                                                         />
@@ -323,7 +318,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         <input
                                                             name="46"
                                                             placeholder="Score"
-                                                            onChange={(e) => setCurrentValue('finals', winners['semifinals-46'].name, e.target.value, 47, 'b')}
+                                                            onBlur={(e) => setCurrentValue('finals', winners['semifinals-46'].name, e.target.value, 47, 'b')}
                                                             type="number"
                                                             min="0"
                                                         />
