@@ -177,7 +177,6 @@ const ForecastComponent = ({ goNext, setLoader }) => {
             [key]: tempsTotalValue,
         }));
 
-        console.log('total', totals)
 
         checkValues();
         setValues(currentValues);

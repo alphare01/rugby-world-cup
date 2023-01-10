@@ -1,9 +1,25 @@
 import './pool-tables.scss';
+import { useState, useEffect } from 'react';
 
 import translate from '../../../assets/nations.json';
 
 
 const PoolTablesComponent = ({ goNext, data }) => {
+    const [orderedData, setOrderedData] = useState(null);
+    
+    useEffect(() => {
+        if (!!data && data.length) {
+            let newData = [];
+            data.forEach(pool => {
+                let orderedTeam = pool.teams.sort((a, b) => {
+                    return a.PL - b.PL;
+                })
+
+                newData.push({pool: pool.pool, id: pool.id, teams: orderedTeam});
+            })
+            setOrderedData(newData);
+        }
+    }, [data])
 
     const getFlagKey = (name) => {
         let flag = (!!translate && translate[name]) ? translate[name].code : '';
@@ -20,9 +36,9 @@ const PoolTablesComponent = ({ goNext, data }) => {
     return (
         <div style={{overflow: 'scroll', height: '100%'}}>
             <div className="data-pool-container">
-                {!!data && 
+                {!!orderedData &&
                     <>
-                        {data.map(pool => 
+                        {orderedData.map(pool => 
                             <div className="data-pool-content" key={pool.pool}>
                             <div className="pool-header">POULE {pool.pool}</div>
                             <div className="row header">
@@ -63,7 +79,7 @@ const PoolTablesComponent = ({ goNext, data }) => {
                     </>
                 }
             </div>
-            {!!data && <button style={{margin: "15px auto"}} onClick={goNext}>Acceder aux phases finales</button>}
+            {!!orderedData && <button style={{margin: "15px auto"}} onClick={goNext}>Acceder aux phases finales</button>}
         </div>
     )
 };
