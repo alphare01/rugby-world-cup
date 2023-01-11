@@ -60,6 +60,8 @@ const KnockoutStageComponent = ({setLoader}) => {
     }
 
     const setEqualityWinner = (winnerTeam, teams, phase ) => {
+        console.log(winners['semifinals-45'])
+        console.log(winners)
         const matchKey = phase + '-' + winnerTeam.matchId;
         setPopUpTeams(null);
         setDisplayPopUp(false);
@@ -160,6 +162,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                                 type="number"
                                                                 min="0"
                                                             />
+                                                            {(!!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].tab && winners['quarterfinals-' + match.id].name === match.teamA) && <div className="tab-label">T.A.B</div>}                                                        
                                                         </div>
                                                     </span>
                                                 </div>
@@ -175,6 +178,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                                 type="number"
                                                                 min="0"
                                                             />
+                                                            {(!!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].tab && winners['quarterfinals-' + match.id].name === match.teamB) && <div className="tab-label">T.A.B</div>}
                                                         </div>
                                                     </span>
                                                 </div>
@@ -214,6 +218,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         type="number"
                                                         min="0"
                                                     />
+                                                    {(!!winners['semifinals-45'] && winners['semifinals-45'].tab && winners['semifinals-45'].name === winners['quarterfinals-41'].name) && <div className="tab-label">T.A.B</div>}
                                                 </div>
                                             </span>}
                                         </div>
@@ -230,6 +235,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         type="number"
                                                         min="0"
                                                     />
+                                                    {(!!winners['semifinals-45'] && winners['semifinals-45'].tab && winners['semifinals-45'].name === winners['quarterfinals-42'].name) && <div className="tab-label">T.A.B</div>}
                                                 </div>
                                             </span>}
                                         </div>
@@ -251,6 +257,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         type="number"
                                                         min="0"
                                                     />
+                                                {(!!winners['semifinals-46'] && winners['semifinals-46'].tab && winners['semifinals-46'].name === winners['quarterfinals-43'].name) && <div className="tab-label">T.A.B</div>}
                                                 </div>
                                             </span>}
                                         </div>
@@ -267,6 +274,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         type="number"
                                                         min="0"
                                                     />
+                                                    {(!!winners['semifinals-46'] && winners['semifinals-46'].tab && winners['semifinals-46'].name === winners['quarterfinals-44'].name) && <div className="tab-label">T.A.B</div>}
                                                 </div>
                                             </span>}
                                         </div>
@@ -303,6 +311,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                             type="number"
                                                             min="0"
                                                         />
+                                                        {(!!winners['finals-47'] && winners['finals-47'].tab && winners['finals-47'].name === winners['semifinals-45'].name) && <div className="tab-label">T.A.B</div>}
                                                     </div>
                                                 </span>
                                                 
@@ -322,6 +331,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                             type="number"
                                                             min="0"
                                                         />
+                                                        {(!!winners['finals-47'] && winners['finals-47'].tab && winners['finals-47'].name === winners['semifinals-46'].name) && <div className="tab-label">T.A.B</div>}
                                                     </div>                                   
                                                 </span>
                                             }
@@ -345,7 +355,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                         <div className="popup-content">Qui remporter la séance de tir aux buts?</div>
                         <div className="buttons">
                             {popupTeams.teams.map((team, i) =>
-                                <button key={i} onClick={() => setEqualityWinner(team, popupTeams.teams, popupTeams.phase)}>{team.name}</button>
+                                <button key={i} onClick={() => setEqualityWinner(team, popupTeams.teams, popupTeams.phase)}>{formatTeamName(team.name)}</button>
                             )}
                         </div>
                     </div>

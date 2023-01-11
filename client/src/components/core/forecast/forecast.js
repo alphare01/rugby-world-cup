@@ -23,9 +23,9 @@ const ForecastComponent = ({ goNext, setLoader }) => {
         }
     }, [])
 
-    useEffect(() => {
-        setLoader(isPoolMatchesLoading);
-    }, [isPoolMatchesLoading])
+    // useEffect(() => {
+    //     setLoader(isPoolMatchesLoading);
+    // }, [isPoolMatchesLoading])
 
     useEffect(() => {
         if (poolMatches) {
@@ -277,7 +277,7 @@ const ForecastComponent = ({ goNext, setLoader }) => {
 
     return (
         <div>
-            {(!!forecast && forecast.length && !!values) && 
+            {(!!forecast && forecast.length && !!values && !isPoolMatchesLoading) && 
             <div className="forecast-container">
                 <div className="calendar-section">
                     {/* calendar */}
