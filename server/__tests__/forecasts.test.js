@@ -2,6 +2,20 @@ const request = require('supertest');
 const app = require('../src/app');
 
 describe('TEST POST /forecasts', () => {
+
+    beforeAll(async () => {
+        const MONGO_URL = 'mongodb+srv://alphare:Wxz9U3us0qp5n62e@rwccluster.btthaa7.mongodb.net/?retryWrites=true&w=majority';
+        connection = await MongoClient.connect(globalThis.MONGO_URL, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        });
+        db = await connection.db(globalThis.__MONGO_DB_NAME__);
+      });
+    
+      afterAll(async () => {
+        await connection.close();
+      });
+
     const completeForecasts = [
         {
             id: 1,
@@ -611,12 +625,55 @@ describe('TEST POST /forecasts', () => {
             .send(completeForecasts)
             .expect('Content-Type', /json/)
             .expect(201);
+        console.log(response);
+        expect(response.body.sort()).toEqual([
+            {
+                "id":2,
+                "pool":"B",
+                "teams":[
+                    {"name":"South-Africa","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b8"},
+                    {"name":"Ireland","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b9"},
+                    {"name":"Scotland","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29ba"},
+                    {"name":"Tonga","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29bb"},
+                    {"name":"Romania","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29bc"}
+                ]
+            },
+            {
+                "id":1,
+                "pool":"A",
+                "teams":[
+                    {"name":"New-Zealand","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b2"},
+                    {"name":"France","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b3"},
+                    {"name":"Italy","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b4"},
+                    {"name":"Uruguay","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b5"},
+                    {"name":"Namibia","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b6"}
+                ]
+            },
+            {
+                "id":3,
+                "pool":"C",
+                "teams":[
+                    {"name":"Wales","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29be"},
+                    {"name":"Australia","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29bf"},
+                    {"name":"Fiji","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c0"},
+                    {"name":"Georgia","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c1"},
+                    {"name":"Portugal","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c2"}
+                ]
+            },
+            {
+                "id":4,
+                "pool":"D",
+                "teams":[
+                    {"name":"England","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c4"},
+                    {"name":"Japan","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c5"},
+                    {"name":"Argentina","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c6"},
+                    {"name":"Samoa","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c7"},
+                    {"name":"Chile","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c8"}
+                ]
+            }
+        ].sort());
         
-        expect(response.body.sort()).toEqual(
-
-        );
-
-    })
+    }, 15000);
     
     
     
@@ -637,49 +694,3 @@ describe('TEST POST /forecasts', () => {
     // test('It should respond with 201 created', () => {});
 });
 
-[
-    {
-        "id":2,
-        "pool":"B",
-        "teams":[
-            {"name":"South-Africa","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b8"},
-            {"name":"Ireland","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b9"},
-            {"name":"Scotland","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29ba"},
-            {"name":"Tonga","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29bb"},
-            {"name":"Romania","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29bc"}
-        ]
-    },
-    {
-        "id":1,
-        "pool":"A",
-        "teams":[
-            {"name":"New-Zealand","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b2"},
-            {"name":"France","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b3"},
-            {"name":"Italy","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b4"},
-            {"name":"Uruguay","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b5"},
-            {"name":"Namibia","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29b6"}
-        ]
-    },
-    {
-        "id":3,
-        "pool":"C",
-        "teams":[
-            {"name":"Wales","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29be"},
-            {"name":"Australia","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29bf"},
-            {"name":"Fiji","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c0"},
-            {"name":"Georgia","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c1"},
-            {"name":"Portugal","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c2"}
-        ]
-    },
-    {
-        "id":4,
-        "pool":"D",
-        "teams":[
-            {"name":"England","PL":1,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c4"},
-            {"name":"Japan","PL":2,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c5"},
-            {"name":"Argentina","PL":3,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c6"},
-            {"name":"Samoa","PL":4,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c7"},
-            {"name":"Chile","PL":5,"W":0,"D":4,"L":0,"PF":0,"PA":0,"DIFF":0,"TF":0,"BP":0,"POINTS":8,"_id":"63c046da42da067023ff29c8"}
-        ]
-    }
-].sort()

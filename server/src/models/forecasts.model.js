@@ -40,5 +40,6 @@ async function getAllForecasts() {
 
 module.exports = {
     postForecasts,
-    getAllForecasts
+    getAllForecasts,
+    finalScore
 };

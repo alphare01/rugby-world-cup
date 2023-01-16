@@ -1,25 +1,22 @@
 //-----------REQUIRE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const poolTablesDataBase = require('../schemata/pool.tables.mongo');
-const {postForecasts, getAllForecasts} = require('../models/forecasts.model');
-const {loadPoolTablesData, countWDL, countBP, countPF, countPA, countDIFF, countPOINTS, countTF, countPL, getAllPoolTables} = require('../models/pool.tables.model');
+const {postForecasts, getAllForecasts, finalScore} = require('../models/forecasts.model');
+const {loadPoolTablesData, countWDL, countBP, countPF, countPA, countDIFF, countPOINTS, countTF, countPL, getAllPoolTables, poolTables} = require('../models/pool.tables.model');
 
 //-----------FUNCTION----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 async function httpPostAllForecasts(req, res) {
     const forecasts = req.body;
-    await poolTablesDataBase.deleteMany({});
-    await loadPoolTablesData();
-    await postForecasts(forecasts);
-    const forecastsData = await getAllForecasts();
-    await countWDL(forecastsData);
-    await countBP(forecastsData);
-    await countPF(forecastsData);
-    await countPA(forecastsData);
-    await countDIFF();
-    await countPOINTS();
-    await countTF(forecastsData);
-    await countPL(forecastsData);
+    const forecastsWithScore = finalScore(forecasts);
+    countWDL(forecastsData);
+    countBP(forecastsData);
+    countPF(forecastsData);
+    countPA(forecastsData);
+    countDIFF();
+    countPOINTS();
+    countTF(forecastsData);
+    countPL(forecastsData);
     return res.status(201).json(await getAllPoolTables());
 };
 
