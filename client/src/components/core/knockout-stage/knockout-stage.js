@@ -76,6 +76,13 @@ const KnockoutStageComponent = ({setLoader}) => {
     }
 
     const setCurrentValue = (phase, team, score, matchId, teamKey) => {
+        // console.log('score', score)
+        // if (score == '1' || score == '2' || score == '4') {
+
+        // } else {
+
+        // }
+
         const key = phase + '-' + matchId + '-' + teamKey;
         const opponentTeamKey = teamKey === 'a' ? 'b' : 'a';
         const opponentKey = phase + '-' + matchId + '-' + opponentTeamKey;

@@ -111,6 +111,10 @@ const ForecastComponent = ({ goNext, setLoader }) => {
                     })
                 }
             })
+            dates.sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            })
+
             setCalendarData(dates);
         }
     }
@@ -209,7 +213,7 @@ const ForecastComponent = ({ goNext, setLoader }) => {
                 }
             })
             if (keys.length < 80 || haveScoreNull) {
-                setPopUpMessage('Certains score sont à O. Voulez vous valider vos pronotics?');
+                setPopUpMessage('Certains score sont à 0. Voulez vous valider vos pronotics?');
                 setDisplayPopUp(true);
                 return;
             } else {
