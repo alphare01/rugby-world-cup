@@ -212,10 +212,14 @@
             }
         }
     }
+    .invalid {
+        color: red !important;
+        border-left-color: red !important;
+    }
 }
 
 .tab-label {
-    margin: 0;
+    margin: 0 0 0 9px;
     line-height: 1;
     font-size: 12px;
     font-weight: bold;

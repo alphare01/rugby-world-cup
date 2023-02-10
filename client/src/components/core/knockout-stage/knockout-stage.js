@@ -11,7 +11,7 @@ const KnockoutStageComponent = ({setLoader}) => {
     const [forecast, setForecast] = useState({})
     const [winners, setWinners] = useState({})
     const [isFinalDraw, setIsFinalDraw] = useState(false);
-
+    const [forbiddenValues, setForbiddenValues] = useState({});
     const [popupTeams, setPopUpTeams] = useState(null);
     const [displayPopUp, setDisplayPopUp] = useState(false);
 
@@ -76,17 +76,30 @@ const KnockoutStageComponent = ({setLoader}) => {
     }
 
     const setCurrentValue = (phase, team, score, matchId, teamKey) => {
-        // console.log('score', score)
-        // if (score == '1' || score == '2' || score == '4') {
-
-        // } else {
-
-        // }
-
         const key = phase + '-' + matchId + '-' + teamKey;
         const opponentTeamKey = teamKey === 'a' ? 'b' : 'a';
         const opponentKey = phase + '-' + matchId + '-' + opponentTeamKey;
-        
+        console.log('score', score)
+
+        if (score == '1' || score == '2' || score == '4') {
+            let forbiddenKey = matchId + '-team' + teamKey;
+            const obj = {};
+            console.log(forbiddenValues)
+            setForbiddenValues((current) => ({
+                ...current,
+                [forbiddenKey]: true
+            }));
+            return;
+        } else {
+            let forbiddenKey = matchId + '-team' + teamKey;
+            if (forbiddenValues[forbiddenKey] === true) {
+                setForbiddenValues((current) => ({
+                    ...current,
+                    [forbiddenKey]: false
+                }));
+            }
+        }
+
         let currentTeam = {
             name: team,
             score: score,
@@ -157,7 +170,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                     {quarterMatch.map((match, j) => 
                                         <div className="matchup" key={j}>
                                             <div className="participants">
-                                                <div className={"participant " + (!!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].name === match.teamA ? 'winner' : '')}>
+                                                <div className={"participant " + (!!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].name === match.teamA ? 'winner' : '') + (forbiddenValues[`${match.id}-teama`] ? ' invalid' : '')}>
                                                     <span>
                                                     <span className={`fi fi-${getFlagKey(match.teamA)}`}></span>
                                                     {formatTeamName(match.teamA)}
@@ -169,11 +182,12 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                                 type="number"
                                                                 min="0"
                                                             />
-                                                            {(!!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].tab && winners['quarterfinals-' + match.id].name === match.teamA) && <div className="tab-label">T.A.B</div>}                                                        
+                                                            {(!forbiddenValues[`${match.id}-teama`] && !!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].tab && winners['quarterfinals-' + match.id].name === match.teamA) && <div className="tab-label">T.A.B</div>}
+                                                            {forbiddenValues[`${match.id}-teama`] && <div className="tab-label">invalide</div>}
                                                         </div>
                                                     </span>
                                                 </div>
-                                                <div className={"participant " + (winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].name === match.teamB ? 'winner' : '')}>
+                                                <div className={"participant " + (winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].name === match.teamB ? 'winner' : '') + (forbiddenValues[`${match.id}-teamb`] ? ' invalid' : '')}>
                                                     <span>
                                                     <span className={`fi fi-${getFlagKey(match.teamB)}`}></span>
                                                     {formatTeamName(match.teamB)}
@@ -185,7 +199,8 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                                 type="number"
                                                                 min="0"
                                                             />
-                                                            {(!!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].tab && winners['quarterfinals-' + match.id].name === match.teamB) && <div className="tab-label">T.A.B</div>}
+                                                            {(!forbiddenValues[`${match.id}-teamb`] && !!winners['quarterfinals-' + match.id] && winners['quarterfinals-' + match.id].tab && winners['quarterfinals-' + match.id].name === match.teamB) && <div className="tab-label">T.A.B</div>}
+                                                            {forbiddenValues[`${match.id}-teamb`] && <div className="tab-label">invalide</div>}
                                                         </div>
                                                     </span>
                                                 </div>
@@ -212,7 +227,7 @@ const KnockoutStageComponent = ({setLoader}) => {
 
                                 <div className="matchup">
                                     <div className="participants">
-                                        <div className={"participant " + (!!winners['semifinals-45'] && winners['semifinals-45'].name === winners['quarterfinals-41'].name ? 'winner' : '')}>
+                                        <div className={"participant " + (!!winners['semifinals-45'] && winners['semifinals-45'].name === winners['quarterfinals-41'].name ? 'winner' : '') + (forbiddenValues[`45-teama`] ? ' invalid' : '')}>
                                             {!!winners['quarterfinals-41'] &&
                                             <span>
                                                 <span className={`fi fi-${getFlagKey(winners['quarterfinals-41'].name)}`}></span>
@@ -225,11 +240,12 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         type="number"
                                                         min="0"
                                                     />
-                                                    {(!!winners['semifinals-45'] && winners['semifinals-45'].tab && winners['semifinals-45'].name === winners['quarterfinals-41'].name) && <div className="tab-label">T.A.B</div>}
+                                                    {(!forbiddenValues[`45-teama`] && !!winners['semifinals-45'] && winners['semifinals-45'].tab && winners['semifinals-45'].name === winners['quarterfinals-41'].name) && <div className="tab-label">T.A.B</div>}
+                                                    {forbiddenValues[`45-teama`] && <div className="tab-label">invalide</div>}
                                                 </div>
                                             </span>}
                                         </div>
-                                        <div className={"participant " + (!!winners['semifinals-45'] && winners['semifinals-45'].name === winners['quarterfinals-42'].name ? 'winner' : '')}>
+                                        <div className={"participant " + (!!winners['semifinals-45'] && winners['semifinals-45'].name === winners['quarterfinals-42'].name ? 'winner' : '') + (forbiddenValues[`45-teamb`] ? ' invalid' : '')}>
                                             {!!winners['quarterfinals-42'] &&
                                             <span>
                                                 <span className={`fi fi-${getFlagKey(winners['quarterfinals-42'].name)}`}>
@@ -242,7 +258,8 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         type="number"
                                                         min="0"
                                                     />
-                                                    {(!!winners['semifinals-45'] && winners['semifinals-45'].tab && winners['semifinals-45'].name === winners['quarterfinals-42'].name) && <div className="tab-label">T.A.B</div>}
+                                                    {(!forbiddenValues[`45-teamb`] && !!winners['semifinals-45'] && winners['semifinals-45'].tab && winners['semifinals-45'].name === winners['quarterfinals-42'].name) && <div className="tab-label">T.A.B</div>}
+                                                    {forbiddenValues[`45-teamb`] && <div className="tab-label">invalide</div>}
                                                 </div>
                                             </span>}
                                         </div>
@@ -251,7 +268,7 @@ const KnockoutStageComponent = ({setLoader}) => {
 
                                 <div className="matchup">
                                     <div className="participants">
-                                        <div className={"participant " + (!!winners['semifinals-46'] && winners['semifinals-46'].name === winners['quarterfinals-43'].name ? 'winner' : '')}>
+                                        <div className={"participant " + (!!winners['semifinals-46'] && winners['semifinals-46'].name === winners['quarterfinals-43'].name ? 'winner' : '') + (forbiddenValues[`46-teama`] ? ' invalid' : '')}>
                                             {!!winners['quarterfinals-43'] &&
                                             <span>
                                                 <span className={`fi fi-${getFlagKey(winners['quarterfinals-43'].name)}`}></span>
@@ -264,11 +281,12 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         type="number"
                                                         min="0"
                                                     />
-                                                {(!!winners['semifinals-46'] && winners['semifinals-46'].tab && winners['semifinals-46'].name === winners['quarterfinals-43'].name) && <div className="tab-label">T.A.B</div>}
+                                                {(!forbiddenValues[`46-teama`] && !!winners['semifinals-46'] && winners['semifinals-46'].tab && winners['semifinals-46'].name === winners['quarterfinals-43'].name) && <div className="tab-label">T.A.B</div>}
+                                                {forbiddenValues[`46-teama`] && <div className="tab-label">invalide</div>}
                                                 </div>
                                             </span>}
                                         </div>
-                                        <div className={"participant " + (!!winners['semifinals-46'] && winners['semifinals-46'].name === winners['quarterfinals-44'].name ? 'winner' : '')}>
+                                        <div className={"participant " + (!!winners['semifinals-46'] && winners['semifinals-46'].name === winners['quarterfinals-44'].name ? 'winner' : '') + (forbiddenValues[`46-teamb`] ? ' invalid' : '')}>
                                             {!!winners['quarterfinals-44'] &&
                                             <span>
                                                 <span className={`fi fi-${getFlagKey(winners['quarterfinals-44'].name)}`}></span>
@@ -282,6 +300,7 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                         min="0"
                                                     />
                                                     {(!!winners['semifinals-46'] && winners['semifinals-46'].tab && winners['semifinals-46'].name === winners['quarterfinals-44'].name) && <div className="tab-label">T.A.B</div>}
+                                                    {forbiddenValues[`46-teamb`] && <div className="tab-label">invalide</div>}
                                                 </div>
                                             </span>}
                                         </div>
@@ -305,7 +324,7 @@ const KnockoutStageComponent = ({setLoader}) => {
 
                                 <div className="matchup">
                                     <div className="participants">
-                                        <div className={"participant " + (!!winners['finals-47'] && winners['finals-47'].name === winners['semifinals-45'].name ? 'winner' : '')}>
+                                        <div className={"participant " + (!!winners['finals-47'] && winners['finals-47'].name === winners['semifinals-45'].name ? 'winner' : '') + (forbiddenValues[`47-teama`] ? ' invalid' : '')}>
                                             {!!winners['semifinals-45'] && 
                                                 <span>
                                                     <span className={`fi fi-${getFlagKey(winners['semifinals-45'].name)}`}></span>
@@ -318,14 +337,15 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                             type="number"
                                                             min="0"
                                                         />
-                                                        {(!!winners['finals-47'] && winners['finals-47'].tab && winners['finals-47'].name === winners['semifinals-45'].name) && <div className="tab-label">T.A.B</div>}
+                                                        {(!forbiddenValues[`47-teama`] && !!winners['finals-47'] && winners['finals-47'].tab && winners['finals-47'].name === winners['semifinals-45'].name) && <div className="tab-label">T.A.B</div>}
+                                                        {forbiddenValues[`47-teama`] && <div className="tab-label">invalide</div>}
                                                     </div>
                                                 </span>
                                                 
                                             }
                                             {!isFinalDraw && <div className='crown'><span>WINNER</span><img src={require('../../../assets/cup.png')} /> </div>}
                                         </div>
-                                        <div className={"participant " + (!!winners['finals-47'] && winners['finals-47'].name === winners['semifinals-46'].name ? 'winner' : '')}>
+                                        <div className={"participant " + (!!winners['finals-47'] && winners['finals-47'].name === winners['semifinals-46'].name ? 'winner' : '') + (forbiddenValues[`47-teamb`] ? ' invalid' : '')}>
                                             {winners['semifinals-46'] && 
                                                 <span>
                                                     <span className={`fi fi-${getFlagKey(winners['semifinals-46'].name)}`}></span>
@@ -338,7 +358,8 @@ const KnockoutStageComponent = ({setLoader}) => {
                                                             type="number"
                                                             min="0"
                                                         />
-                                                        {(!!winners['finals-47'] && winners['finals-47'].tab && winners['finals-47'].name === winners['semifinals-46'].name) && <div className="tab-label">T.A.B</div>}
+                                                        {(!forbiddenValues[`47-teamb`] && !!winners['finals-47'] && winners['finals-47'].tab && winners['finals-47'].name === winners['semifinals-46'].name) && <div className="tab-label">T.A.B</div>}
+                                                        {forbiddenValues[`47-teamb`] && <div className="tab-label">invalide</div>}
                                                     </div>                                   
                                                 </span>
                                             }
